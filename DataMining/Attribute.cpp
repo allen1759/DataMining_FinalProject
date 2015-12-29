@@ -9,7 +9,7 @@
 #include "Attribute.h"
 #include <sstream>
 
-#include <iostream>
+// #include <iostream>
 using namespace std;
 
 void Attribute::initial(fstream & in)
@@ -29,7 +29,7 @@ void Attribute::initial(fstream & in)
         }
         while( ss>>word ) {
             word = word.substr(0, word.length()-2);
-            cout << "word = " << word << ": " << cnt+1 << endl;
+            // cout << "word = " << word << ": " << cnt+1 << endl;
             record[attrSize][word] = ++cnt;
         }
         attrSize += 1;
