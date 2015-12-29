@@ -37,12 +37,12 @@ void Attribute::initial(fstream & in)
 }
 
 
-int Attribute::getAttrSize()
+int Attribute::getAttrSize() const
 {
     return attrSize;
 }
 
-int Attribute::getMapping(int attnum, std::string name)
+int Attribute::getMapping(int attnum, std::string name) const
 {
-    return record[attnum][name];
+    return record[attnum].find(name)->second;
 }

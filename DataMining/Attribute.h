@@ -23,8 +23,8 @@ private:
     
 public:
     void initial(std::fstream & in);
-    int getAttrSize();
-    int getMapping(int attnum, std::string name);
+    int getAttrSize() const;
+    int getMapping(int attnum, std::string name) const;
 };
 
 #endif /* Attribute_h */

@@ -10,6 +10,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include "Function.h"
 #include "Attribute.h"
 #include "Data.h"
 using namespace std;
@@ -20,13 +21,11 @@ int main(int argc, const char * argv[])
     in.open("/Users/Allen/Documents/workspace/DataMining/attributes.txt", ios::in);
     Attribute attrs;
     attrs.initial(in);
+    in.close();
     
     in.open("/Users/Allen/Documents/workspace/DataMining/expanded.txt", ios::in);
     vector<Data> allData;
-    string line;
-    while ( getline(in, line) ) {
-        Data data(attrs.getAttrSize());
-    }
+    InputAllDatas(in, allData, attrs);
     
     cout << "Hello, World!\n";
     

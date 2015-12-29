@@ -10,17 +10,23 @@
 #define Data_h
 
 #include <vector>
+#include <string>
 
 class Data
 {
-private:
+public:
+    bool canEat;
     std::vector<int> data;
     
-public:
     Data() = default;
     Data(int size)
     {
         data.resize(size);
+    }
+    
+    void setEat(bool ans)
+    {
+        canEat = ans;
     }
 };
 
