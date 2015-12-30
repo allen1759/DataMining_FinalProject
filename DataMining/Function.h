@@ -13,8 +13,10 @@
 // #include <fstream>
 #include "Data.h"
 #include "Attribute.h"
+#include "Node.h"
 
 std::string & tolower(std::string & str);
 void InputAllDatas(std::fstream & in, std::vector<Data> & datas, const Attribute & attrs);
+
 
 #endif /* Function_h */

@@ -36,6 +36,12 @@ void Attribute::initial(fstream & in)
     }
 }
 
+int Attribute::getOneSize(int i) const
+{
+    // if( i>=record.size() )
+        // cout << "recod size error!" << endl;
+    return static_cast<int>( record[i].size() );
+}
 
 int Attribute::getAttrSize() const
 {

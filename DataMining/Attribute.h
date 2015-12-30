@@ -23,6 +23,7 @@ private:
     
 public:
     void initial(std::fstream & in);
+    int getOneSize(int i) const;
     int getAttrSize() const;
     int getMapping(int attnum, std::string name) const;
 };

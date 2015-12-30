@@ -10,6 +10,7 @@
 		9FEDC7531C328F40003ABB9C /* Attribute.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9FEDC7511C328F40003ABB9C /* Attribute.cpp */; };
 		9FEDC7561C32C550003ABB9C /* Data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9FEDC7551C32C550003ABB9C /* Data.cpp */; };
 		9FEDC75B1C32CB14003ABB9C /* Function.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9FEDC75A1C32CB14003ABB9C /* Function.cpp */; };
+		9FEDC75F1C33A447003ABB9C /* Tree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9FEDC75E1C33A447003ABB9C /* Tree.cpp */; };
 		9FFD40B11C3275FE00A529F7 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9FFD40B01C3275FE00A529F7 /* main.cpp */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +34,8 @@
 		9FEDC7591C32CB00003ABB9C /* Function.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Function.h; sourceTree = "<group>"; };
 		9FEDC75A1C32CB14003ABB9C /* Function.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Function.cpp; sourceTree = "<group>"; };
 		9FEDC75C1C32E563003ABB9C /* Node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Node.h; sourceTree = "<group>"; };
+		9FEDC75D1C33A437003ABB9C /* Tree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tree.h; sourceTree = "<group>"; };
+		9FEDC75E1C33A447003ABB9C /* Tree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Tree.cpp; sourceTree = "<group>"; };
 		9FFD40AD1C3275FE00A529F7 /* DataMining */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = DataMining; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FFD40B01C3275FE00A529F7 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -75,6 +78,8 @@
 				9FEDC7591C32CB00003ABB9C /* Function.h */,
 				9FEDC75A1C32CB14003ABB9C /* Function.cpp */,
 				9FEDC75C1C32E563003ABB9C /* Node.h */,
+				9FEDC75D1C33A437003ABB9C /* Tree.h */,
+				9FEDC75E1C33A447003ABB9C /* Tree.cpp */,
 			);
 			path = DataMining;
 			sourceTree = "<group>";
@@ -139,6 +144,7 @@
 				9FEDC7531C328F40003ABB9C /* Attribute.cpp in Sources */,
 				9FFD40B11C3275FE00A529F7 /* main.cpp in Sources */,
 				9FEDC75B1C32CB14003ABB9C /* Function.cpp in Sources */,
+				9FEDC75F1C33A447003ABB9C /* Tree.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
