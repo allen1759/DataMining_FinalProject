@@ -140,3 +140,19 @@ Node * DecisionTree::ConstructDecisionTree(std::vector<Data> & allData, const At
     
     return currNode;
 }
+
+bool DecisionTree::PredictData(Data currData)
+{
+    Node * ptr = head;
+    while ( !ptr->hasValue ) {
+        int childInd = ptr->question;
+        // 可以改成找不到就統計所有其他的 attribute算答案
+        // 現在先找不到就改成下一個
+        Node * tmpptr = ptr->child[ childInd ];
+        while ( tmpptr->isLeaf && !tmpptr->hasValue) {
+            tmpptr = ptr->child[ (++childInd) % ptr->child.size() ];
+        }
+        ptr = tmpptr;
+    }
+    return ptr->canEat;
+}

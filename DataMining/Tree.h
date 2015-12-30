@@ -30,6 +30,7 @@ public:
     DecisionTree(double thres);
     // DecisionTree(std::vector<Data> & allData);
     Node * ConstructDecisionTree(std::vector<Data> & allData, const Attribute & attrs, int level);
+    bool PredictData(Data currData);
 };
 
 #endif /* Tree_h */
