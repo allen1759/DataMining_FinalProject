@@ -31,6 +31,8 @@ public:
     // DecisionTree(std::vector<Data> & allData);
     Node * ConstructDecisionTree(std::vector<Data> & allData, const Attribute & attrs, int level);
     bool PredictData(Data currData);
+    void PrintNode(Node * curr, int level);
+    void Print();
 };
 
 #endif /* Tree_h */

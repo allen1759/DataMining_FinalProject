@@ -51,15 +51,17 @@ int main(int argc, const char * argv[])
     cout << "Construct DecisionTree Time: " << static_cast<double>(end_time - start_time)/CLOCKS_PER_SEC << endl;
     // ========== using traing dataset ==========
     
+    myTree.Print();
+    
     // ========== using testing dataset ==========
     start_time = clock(); /* mircosecond */
     
     int cntSucceed = 0;
-    for(auto & data : testingData) {
-        if( data.canEat == myTree.PredictData(data) ) {
-            cntSucceed += 1;
-        }
-    }
+//    for(auto & data : testingData) {
+//        if( data.canEat == myTree.PredictData(data) ) {
+//            cntSucceed += 1;
+//        }
+//    }
     
     end_time = clock();
     cout << endl << endl;

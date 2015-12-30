@@ -137,11 +137,11 @@ Node * DecisionTree::ConstructDecisionTree(std::vector<Data> & allData, const At
         cout << "DecisionTree::ConstructDecisionTree";
         cout << "Num of Data Incorrect!" << endl;
     }
+    
     currNode->child.resize( attrs.getOneSize(bestSplit)+1 );
     for(int i=0; i<currNode->child.size(); i+=1) {
         currNode->child[i] = ConstructDecisionTree(splitedData[i], attrs, level+1);
     }
-    
     
     if( level==0 ) {
         head = currNode;
@@ -166,4 +166,34 @@ bool DecisionTree::PredictData(Data currData)
     }
     cout << ss << endl;
     return ptr->canEat;
+}
+
+void DecisionTree::PrintNode(Node * curr, int level)
+{
+    if( curr==nullptr ) return;
+    // if( curr->isLeaf ) return;
+    if( curr->child.size()==0 ) return;
+    
+    for(int i=0; i<level; i+=1) cout << "    ";
+    cout << "level= " << level << endl;
+    for(int i=0; i<level; i+=1) cout << "    ";
+    cout << "hasValue= " << curr->hasValue << endl;
+    if (curr->hasValue) {
+        for(int i=0; i<level; i+=1) cout << "    ";
+        cout << "canEat= " << curr->canEat << endl;
+    }
+    for(int i=0; i<level; i+=1) cout << "    ";
+    cout << "Num of child= " << curr->child.size() << endl;
+    for(int i=0; i<curr->child.size(); i+=1) {
+        for(int k=0; k<level; k+=1) cout << "    ";
+        cout << "Index of child= " << i << endl;
+        PrintNode(curr->child[i], level+1);
+    }
+    for(int i=0; i<level; i+=1) cout << "    ";
+    cout << "end of the Node" << endl << endl;
+}
+
+void DecisionTree::Print()
+{
+    PrintNode(head, 0);
 }
