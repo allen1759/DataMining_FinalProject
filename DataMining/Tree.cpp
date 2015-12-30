@@ -55,16 +55,45 @@ int DecisionTree::GetMinSplit(const std::vector<Data> & datas, std::vector< std:
     return retSplit;
 }
 
+double DecisionTree::getPurity(const std::vector<Data> & arr)
+{
+    int cntEat = 0;
+    for( const Data & e : arr ) {
+        if( e.canEat )
+            cntEat += 1;
+    }
+    return max( static_cast<double>(arr.size() - cntEat) / arr.size() ,
+                static_cast<double>(cntEat) / arr.size() );
+}
+
 //DecisionTree::DecisionTree(std::vector<Data> & allData)
 //{
 //    head = ConstructDecisionTree(allData);
 //}
 
+DecisionTree::DecisionTree(double thres)
+{
+    purityThreshold = thres;
+}
+
 Node * DecisionTree::ConstructDecisionTree(std::vector<Data> & allData, const Attribute & attrs)
 {
     Node * currNode = new Node();
+    if( getPurity(allData) >= purityThreshold ) {
+        currNode->isLeaf = true;
+        return currNode;
+    }
+    
     vector< vector<Data> > splitedData;
-    int bestSplit = GetMinSplit(allData, splitedData, attrs)
+    int bestSplit = GetMinSplit(allData, splitedData, attrs);
+    if( splitedData.size()!=attrs.getOneSize(bestSplit) ) {
+        cout << "Something Wrong!!! - ";
+        cout << "DecisionTree::ConstructDecisionTree" << endl;
+    }
+    currNode->child.resize( attrs.getOneSize(bestSplit) );
+    for(int i=0; i<currNode->child.size(); i+=1) {
+        currNode->child[i] = ConstructDecisionTree(splitedData[i], attrs);
+    }
     
     return currNode;
 }
