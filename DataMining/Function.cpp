@@ -29,7 +29,7 @@ void InputAllDatas(std::fstream & in, std::vector<Data> & datas, const Attribute
         if( line[0]=='/') continue;
         Data oned( attrs.getAttrSize() );
         stringstream ss(line);
-        cout << ss.str() << endl;
+        // cout << ss.str() << endl;
         ss >> word;
         if( word[0]=='E' )
             oned.setEat(true);
@@ -41,14 +41,14 @@ void InputAllDatas(std::fstream & in, std::vector<Data> & datas, const Attribute
         for(int i=0; i<oned.data.size(); i+=1) {
             ss >> word;
             word = tolower(word);
-            cout << word[0] << " ";
+            // cout << word[0] << " ";
             if( word=="?" )
                 oned.data[i] = 0;
             else
                 oned.data[i] = attrs.getMapping(i, word);
-            cout << oned.data[i] << " ";
+            // cout << oned.data[i] << " ";
         }
-        cout << endl;
+        // cout << endl;
         datas.push_back(oned);
     }
 }

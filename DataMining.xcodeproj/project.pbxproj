@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		9FEDC7531C328F40003ABB9C /* Attribute.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9FEDC7511C328F40003ABB9C /* Attribute.cpp */; };
 		9FEDC7561C32C550003ABB9C /* Data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9FEDC7551C32C550003ABB9C /* Data.cpp */; };
+		9FEDC75B1C32CB14003ABB9C /* Function.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9FEDC75A1C32CB14003ABB9C /* Function.cpp */; };
 		9FFD40B11C3275FE00A529F7 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9FFD40B01C3275FE00A529F7 /* main.cpp */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +30,9 @@
 		9FEDC7541C328F6E003ABB9C /* Attribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Attribute.h; sourceTree = "<group>"; };
 		9FEDC7551C32C550003ABB9C /* Data.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Data.cpp; sourceTree = "<group>"; };
 		9FEDC7581C32C58C003ABB9C /* Data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Data.h; sourceTree = "<group>"; };
+		9FEDC7591C32CB00003ABB9C /* Function.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Function.h; sourceTree = "<group>"; };
+		9FEDC75A1C32CB14003ABB9C /* Function.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Function.cpp; sourceTree = "<group>"; };
+		9FEDC75C1C32E563003ABB9C /* Node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Node.h; sourceTree = "<group>"; };
 		9FFD40AD1C3275FE00A529F7 /* DataMining */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = DataMining; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FFD40B01C3275FE00A529F7 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -64,10 +68,13 @@
 			isa = PBXGroup;
 			children = (
 				9FFD40B01C3275FE00A529F7 /* main.cpp */,
-				9FEDC7511C328F40003ABB9C /* Attribute.cpp */,
 				9FEDC7541C328F6E003ABB9C /* Attribute.h */,
-				9FEDC7551C32C550003ABB9C /* Data.cpp */,
+				9FEDC7511C328F40003ABB9C /* Attribute.cpp */,
 				9FEDC7581C32C58C003ABB9C /* Data.h */,
+				9FEDC7551C32C550003ABB9C /* Data.cpp */,
+				9FEDC7591C32CB00003ABB9C /* Function.h */,
+				9FEDC75A1C32CB14003ABB9C /* Function.cpp */,
+				9FEDC75C1C32E563003ABB9C /* Node.h */,
 			);
 			path = DataMining;
 			sourceTree = "<group>";
@@ -131,6 +138,7 @@
 				9FEDC7561C32C550003ABB9C /* Data.cpp in Sources */,
 				9FEDC7531C328F40003ABB9C /* Attribute.cpp in Sources */,
 				9FFD40B11C3275FE00A529F7 /* main.cpp in Sources */,
+				9FEDC75B1C32CB14003ABB9C /* Function.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
