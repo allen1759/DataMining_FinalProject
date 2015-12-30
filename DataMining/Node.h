@@ -15,6 +15,7 @@ class Node
 {
 public:
     bool isLeaf = false;
+    bool hasValue = false;
     bool canEat;
     int question;
     // 每一個分枝的值

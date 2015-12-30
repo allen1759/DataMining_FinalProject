@@ -29,7 +29,7 @@ public:
     DecisionTree() = default;
     DecisionTree(double thres);
     // DecisionTree(std::vector<Data> & allData);
-    Node * ConstructDecisionTree(std::vector<Data> & allData, const Attribute & attrs);
+    Node * ConstructDecisionTree(std::vector<Data> & allData, const Attribute & attrs, int level);
 };
 
 #endif /* Tree_h */
