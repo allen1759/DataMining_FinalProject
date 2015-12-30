@@ -91,6 +91,7 @@ Node * DecisionTree::ConstructDecisionTree(std::vector<Data> & allData, const At
     if( allData.size()==0 ) {
         currNode->isLeaf = true;
         currNode->hasValue = false;
+        if( currNode==head ) cout << "QQ1" << endl;
         return currNode;
     }
     double purity = getPurity(allData);
@@ -98,12 +99,14 @@ Node * DecisionTree::ConstructDecisionTree(std::vector<Data> & allData, const At
         currNode->hasValue = true;
         currNode->isLeaf = true;
         currNode->canEat = true;
+        if( currNode==head ) cout << "QQ2" << endl;
         return currNode;
     }
     if( purity <= (1-purityThreshold) ){
         currNode->hasValue = true;
         currNode->isLeaf = true;
         currNode->canEat = false;
+        if( currNode==head ) cout << "QQ3" << endl;
         return currNode;
     }
     if( level>=attrs.getAttrSize()-2 ) {
@@ -115,6 +118,7 @@ Node * DecisionTree::ConstructDecisionTree(std::vector<Data> & allData, const At
         else {
             currNode->canEat = false;
         }
+        if( currNode==head ) cout << "QQ4" << endl;
         return currNode;
     }
     
@@ -138,12 +142,17 @@ Node * DecisionTree::ConstructDecisionTree(std::vector<Data> & allData, const At
         currNode->child[i] = ConstructDecisionTree(splitedData[i], attrs, level+1);
     }
     
+    
+    if( level==0 ) {
+        head = currNode;
+    }
     return currNode;
 }
 
 bool DecisionTree::PredictData(Data currData)
 {
     Node * ptr = head;
+    int ss = 0;
     while ( !ptr->hasValue ) {
         int childInd = ptr->question;
         // 可以改成找不到就統計所有其他的 attribute算答案
@@ -151,8 +160,10 @@ bool DecisionTree::PredictData(Data currData)
         Node * tmpptr = ptr->child[ childInd ];
         while ( tmpptr->isLeaf && !tmpptr->hasValue) {
             tmpptr = ptr->child[ (++childInd) % ptr->child.size() ];
+            ss += 1;
         }
         ptr = tmpptr;
     }
+    cout << ss << endl;
     return ptr->canEat;
 }
