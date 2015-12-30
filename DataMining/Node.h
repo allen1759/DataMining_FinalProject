@@ -15,9 +15,10 @@ class Node
 {
 public:
     bool isLeaf = false;
+    bool canEat;
     int question;
     // 每一個分枝的值
-    std::vector<int> value;
+    // std::vector<int> value;
     // 每一個分枝的 child node
     std::vector<Node *> child;
 };

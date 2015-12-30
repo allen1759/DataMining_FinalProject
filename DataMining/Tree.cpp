@@ -62,8 +62,9 @@ double DecisionTree::getPurity(const std::vector<Data> & arr)
         if( e.canEat )
             cntEat += 1;
     }
-    return max( static_cast<double>(arr.size() - cntEat) / arr.size() ,
-                static_cast<double>(cntEat) / arr.size() );
+    return static_cast<double>(cntEat) / arr.size();
+//    return max( static_cast<double>(arr.size() - cntEat) / arr.size() ,
+//                static_cast<double>(cntEat) / arr.size() );
 }
 
 //DecisionTree::DecisionTree(std::vector<Data> & allData)
@@ -79,8 +80,15 @@ DecisionTree::DecisionTree(double thres)
 Node * DecisionTree::ConstructDecisionTree(std::vector<Data> & allData, const Attribute & attrs)
 {
     Node * currNode = new Node();
-    if( getPurity(allData) >= purityThreshold ) {
+    double purity = getPurity(allData);
+    if( purity >= purityThreshold ){
         currNode->isLeaf = true;
+        currNode->canEat = true;
+        return currNode;
+    }
+    if( purity <= (1-purityThreshold) ){
+        currNode->isLeaf = true;
+        currNode->canEat = false;
         return currNode;
     }
     

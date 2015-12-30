@@ -8,11 +8,12 @@
 
 #include <iostream>
 #include <fstream>
-#include <string>
 #include <vector>
+#include <algorithm>
 #include "Function.h"
 #include "Attribute.h"
 #include "Data.h"
+#include "Tree.h"
 using namespace std;
 
 int main(int argc, const char * argv[])
@@ -26,6 +27,13 @@ int main(int argc, const char * argv[])
     in.open("/Users/Allen/Documents/workspace/DataMining/expanded.txt", ios::in);
     vector<Data> allData;
     InputAllDatas(in, allData, attrs);
+    random_shuffle(allData.begin(), allData.end());
+    int trainingSize = 3000;
+    vector<Data> trainingData(allData.begin(), allData.begin()+trainingSize);
+    vector<Data> testingData(allData.begin()+trainingSize, allData.end());
+    
+    DecisionTree myTree(0.8);
+    myTree.ConstructDecisionTree(trainingData, attrs);
     
     cout << "Hello, World!\n";
     
