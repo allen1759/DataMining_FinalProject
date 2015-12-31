@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9F1D8C931C35294500E6D34A /* Node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9F1D8C921C35294500E6D34A /* Node.cpp */; };
+		9F1D8C961C35525000E6D34A /* Evaluation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9F1D8C951C35525000E6D34A /* Evaluation.cpp */; };
 		9FEDC7531C328F40003ABB9C /* Attribute.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9FEDC7511C328F40003ABB9C /* Attribute.cpp */; };
 		9FEDC7561C32C550003ABB9C /* Data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9FEDC7551C32C550003ABB9C /* Data.cpp */; };
 		9FEDC75B1C32CB14003ABB9C /* Function.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9FEDC75A1C32CB14003ABB9C /* Function.cpp */; };
@@ -29,6 +30,8 @@
 
 /* Begin PBXFileReference section */
 		9F1D8C921C35294500E6D34A /* Node.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Node.cpp; sourceTree = "<group>"; };
+		9F1D8C941C35523D00E6D34A /* Evaluation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Evaluation.h; sourceTree = "<group>"; };
+		9F1D8C951C35525000E6D34A /* Evaluation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Evaluation.cpp; sourceTree = "<group>"; };
 		9FEDC7511C328F40003ABB9C /* Attribute.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Attribute.cpp; sourceTree = "<group>"; };
 		9FEDC7541C328F6E003ABB9C /* Attribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Attribute.h; sourceTree = "<group>"; };
 		9FEDC7551C32C550003ABB9C /* Data.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Data.cpp; sourceTree = "<group>"; };
@@ -83,6 +86,8 @@
 				9F1D8C921C35294500E6D34A /* Node.cpp */,
 				9FEDC75D1C33A437003ABB9C /* Tree.h */,
 				9FEDC75E1C33A447003ABB9C /* Tree.cpp */,
+				9F1D8C941C35523D00E6D34A /* Evaluation.h */,
+				9F1D8C951C35525000E6D34A /* Evaluation.cpp */,
 			);
 			path = DataMining;
 			sourceTree = "<group>";
@@ -147,6 +152,7 @@
 				9FEDC7531C328F40003ABB9C /* Attribute.cpp in Sources */,
 				9FFD40B11C3275FE00A529F7 /* main.cpp in Sources */,
 				9F1D8C931C35294500E6D34A /* Node.cpp in Sources */,
+				9F1D8C961C35525000E6D34A /* Evaluation.cpp in Sources */,
 				9FEDC75B1C32CB14003ABB9C /* Function.cpp in Sources */,
 				9FEDC75F1C33A447003ABB9C /* Tree.cpp in Sources */,
 			);
