@@ -16,8 +16,8 @@
 #include "Node.h"
 
 std::string & tolower(std::string & str);
-
-Data String2Data(std::string & origin, const Attribute & attrs);
+bool String2Data(std::string & origin, const Attribute & attrs);
+bool String2DataNoAnswer(std::string & origin, const Attribute & attrs, Data & onedata);
 void InputAllDatas(std::fstream & in, std::vector<Data> & datas, const Attribute & attrs);
 
 

@@ -71,7 +71,7 @@ int main(int argc, const char * argv[])
     cout << "Precict using Time: " << static_cast<double>(end_time - start_time)/CLOCKS_PER_SEC << endl;
     // ========== using testing dataset ==========
     
-    cout << "Hello, World!\n";
+    // cout << "The End" << endl;
     
     return 0;
 }

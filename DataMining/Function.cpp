@@ -22,6 +22,32 @@ string & tolower(string & str)
     return str;
 }
 
+bool String2DataNoAnswer(std::string & origin, const Attribute & attrs, Data & onedata)
+{
+    string word;
+    Data oned( attrs.getAttrSize() );
+    stringstream ss(origin);
+    // cout << ss.str() << endl;
+    
+    for(int i=0; i<oned.data.size(); i+=1) {
+        ss >> word;
+        word = tolower(word);
+        if( word=="?" )
+            oned.data[i] = 0;
+        else {
+            oned.data[i] = attrs.getMapping(i, word);
+            if( oned.data[i]==0 ) {
+                cout << "Error! Cannot find this attribute value." << endl;
+                return false;
+            }
+        }
+        // cout << oned.data[i] << " ";
+    }
+    // cout << endl;
+    onedata = oned;
+    
+    return true;
+}
 
 bool String2Data(std::string & origin, const Attribute & attrs, Data & onedata)
 {
