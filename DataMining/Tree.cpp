@@ -9,7 +9,6 @@
 #include "Tree.h"
 #include <cmath>
 #include <numeric>
-
 #include <iostream>
 using namespace std;
 
@@ -44,7 +43,51 @@ double DecisionTree::SplitByGini(std::vector< std::vector<Data> > & currSplitDat
 
 double DecisionTree::SplitByEntropy(std::vector< std::vector<Data> > & currSplitData)
 {
-    return 0;
+    vector<int> cntEat( currSplitData.size(), 0 );
+    vector<int> cntSum( currSplitData.size(), 0 );
+    for(int i=0; i<currSplitData.size(); i+=1) {
+        cntSum[i] = static_cast<int>( currSplitData[i].size() );
+        for(int j=0; j<currSplitData[i].size(); j+=1) {
+            if( currSplitData[i][j].canEat )
+                cntEat[i] += 1;
+        }
+    }
+    int total = accumulate(cntSum.begin(), cntSum.end(), 0);
+    
+    double ret = 0;
+    double tt = static_cast<double>( accumulate(cntEat.begin(), cntEat.end(), 0) ) / total;
+    double splitInfo = 0;
+    if (tt) {
+        ret += tt*log(tt);
+    }
+    if (1-tt) {
+        ret += (1-tt)*log(1-tt);
+    }
+    ret = -ret;
+    for(int i=0; i<currSplitData.size(); i+=1) {
+        // divided by zero case
+        if (cntSum[i]==0) {
+            continue;
+        }
+        double tmp = static_cast<double>(cntSum[i]) / static_cast<double>(total);
+        double tt = static_cast<double>(cntEat[i]) / static_cast<double>(cntSum[i]);
+        double entro = 0;
+        if( tt ) {
+            entro += tt*log(tt);
+        }
+        if(1-tt) {
+            entro += (1-tt)*log(1-tt);
+        }
+//        entro = -entro;
+        ret += tmp * entro;
+        splitInfo -= tmp*log(tmp);
+    }
+    
+    // add minus: because we should maximizes GAIN
+    if( splitInfo==0 ) {
+        cout << "SplitInfo should not be zero" << endl;
+    }
+    return -ret / splitInfo;
 }
 double DecisionTree::SplitByError(std::vector< std::vector<Data> > & currSplitData)
 {

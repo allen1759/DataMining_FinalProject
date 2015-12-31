@@ -45,9 +45,9 @@ int main(int argc, const char * argv[])
     start_time = clock(); /* mircosecond */
     
     DecisionTree myTree(0.8);
-    // myTree.ConstructDecisionTree(trainingData, attrs, GINI);
-    // myTree.ConstructDecisionTree(trainingData, attrs, ENTROPY);
-     myTree.ConstructDecisionTree(trainingData, attrs, ERROR);
+//     myTree.ConstructDecisionTree(trainingData, attrs, GINI);
+    myTree.ConstructDecisionTree(trainingData, attrs, ENTROPY);
+//    myTree.ConstructDecisionTree(trainingData, attrs, ERROR);
     
     end_time = clock();
     cout << "           ================ Training Step ================" << endl;
