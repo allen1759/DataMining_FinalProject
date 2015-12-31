@@ -15,6 +15,12 @@
 #include "Attribute.h"
 #include "Node.h"
 
+struct RNG {
+    int operator() (int n) {
+        return std::rand() / (1.0 + RAND_MAX) * n;
+    }
+};
+
 std::string & tolower(std::string & str);
 bool String2Data(std::string & origin, const Attribute & attrs);
 bool String2DataNoAnswer(std::string & origin, const Attribute & attrs, Data & onedata);

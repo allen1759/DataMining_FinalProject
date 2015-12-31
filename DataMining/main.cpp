@@ -18,6 +18,8 @@
 #include "Tree.h"
 using namespace std;
 
+
+
 int main(int argc, const char * argv[])
 {
     srand ( unsigned ( time(0) ) );
@@ -33,8 +35,8 @@ int main(int argc, const char * argv[])
     in.open("/Users/Allen/Documents/workspace/DataMining/expanded.txt", ios::in);
     vector<Data> allData;
     InputAllDatas(in, allData, attrs);
-    random_shuffle(allData.begin(), allData.end());
-    int trainingSize = 40;
+    random_shuffle(allData.begin(), allData.end(), RNG());
+    int trainingSize = 15;
     vector<Data> trainingData(allData.begin(), allData.begin()+trainingSize);
     vector<Data> testingData(allData.begin()+trainingSize, allData.end());
     // ========== get the traing dataset from file ==========
@@ -71,6 +73,7 @@ int main(int argc, const char * argv[])
     cout << "Precict using Time: " << static_cast<double>(end_time - start_time)/CLOCKS_PER_SEC << endl;
     // ========== using testing dataset ==========
     
+    cout << allData[1].data[1] << endl;
     // cout << "The End" << endl;
     
     return 0;

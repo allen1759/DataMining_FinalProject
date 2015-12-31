@@ -173,24 +173,54 @@ void DecisionTree::ConstructDecisionTree(std::vector<Data> & allData, const Attr
     head = ConstructDecisionTreeHelp(allData, attrs, 1);
 }
 
-bool DecisionTree::PredictData(Data & currData)
+bool DecisionTree::PredictFromNode(Node * ptr, Data & currData)
 {
-    Node * ptr = head;
     int ss = 0;
     while ( !ptr->hasValue ) {
         int childInd = currData.data[ ptr->question ];
-        // 可以改成找不到就統計所有其他的 attribute算答案
-        // 現在先找不到就改成下一個
         Node * tmpptr = ptr->child[ childInd ];
-        while ( tmpptr->isNonValueLeaf() ) {
-            tmpptr = ptr->child[ (++childInd) % ptr->child.size() ];
-            ss += 1;
+        
+        if( tmpptr->isNonValueLeaf() ) {
+            // version 1
+            // 現在先找不到就改成下一個
+//            while ( tmpptr->isNonValueLeaf() ) {
+//                tmpptr = ptr->child[ (++childInd) % ptr->child.size() ];
+//                ss += 1;
+//            }
+            // --------------------
+            
+            // version 2
+            // 改成找不到就統計所有其他的 attribute算答案
+            int cntCanEat = 0, cntCannotEat = 0;
+            for(int i=0; i<ptr->child.size(); i+=1) {
+                if( ptr->child[i]->child.size()==0 )
+                    continue;
+                if( PredictFromNode(ptr->child[i], currData) ) {
+                    cntCanEat += 1;
+                }
+                else {
+                    cntCannotEat += 1;
+                }
+            }
+            if( cntCanEat > cntCannotEat ) {
+                return true;
+            }
+            else {
+                return false;
+            }
+            // --------------------
         }
+        
         ptr = tmpptr;
     }
     if( ss )
         cout << ss << endl;
     return ptr->canEat;
+}
+
+bool DecisionTree::PredictData(Data & currData)
+{
+    return PredictFromNode(head, currData);
 }
 
 void DecisionTree::PrintNode(Node * curr, int level)
