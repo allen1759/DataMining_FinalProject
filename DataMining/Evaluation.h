@@ -9,7 +9,6 @@
 #ifndef Evaluation_h
 #define Evaluation_h
 
-
 //                Predicted
 //           ----------------
 //           | \\ | yes| no |
@@ -18,7 +17,6 @@
 //           |--------------|
 //    class  | no | FP | TN |
 //           ----------------
-
 
 class Evaluation
 {

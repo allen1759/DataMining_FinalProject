@@ -36,14 +36,18 @@ int main(int argc, const char * argv[])
     int trainingSize = 15;
     vector<Data> trainingData(allData.begin(), allData.begin()+trainingSize);
     vector<Data> testingData(allData.begin()+trainingSize, allData.end());
+    in.close();
     // ========== get the traing dataset from file ==========
+    
     
     
     // ========== using traing dataset ==========
     start_time = clock(); /* mircosecond */
     
     DecisionTree myTree(0.8);
-    myTree.ConstructDecisionTree(trainingData, attrs, GINI);
+    // myTree.ConstructDecisionTree(trainingData, attrs, GINI);
+    // myTree.ConstructDecisionTree(trainingData, attrs, ENTROPY);
+     myTree.ConstructDecisionTree(trainingData, attrs, ERROR);
     
     end_time = clock();
     cout << "           ================ Training Step ================" << endl;
@@ -52,6 +56,7 @@ int main(int argc, const char * argv[])
     // ========== using traing dataset ==========
     
 //     myTree.Print();
+    
     
     
     // ========== using testing dataset ==========
@@ -78,10 +83,8 @@ int main(int argc, const char * argv[])
     cout << "           ================ Predicting Step ================" << endl;
     cout << "               Testing dataset size = " << testingData.size() << endl << endl;
     eval.PrintMatrix();
-    cout << "               Precict using Time: " << static_cast<double>(end_time - start_time)/CLOCKS_PER_SEC << "(seconds)" << endl;
+    cout << "               Precict using Time: " << static_cast<double>(end_time - start_time)/CLOCKS_PER_SEC << "(seconds)" << endl << endl;
     // ========== using testing dataset ==========
-    
-    cout << allData[1].data[1] << endl;
     
     return 0;
 }

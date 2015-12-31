@@ -15,6 +15,7 @@ using namespace std;
 
 double DecisionTree::SplitByGini(std::vector< std::vector<Data> > & currSplitData )
 {
+//    return  0;
     vector<int> cntEat( currSplitData.size(), 0 );
     vector<int> cntSum( currSplitData.size(), 0 );
     for(int i=0; i<currSplitData.size(); i+=1) {
@@ -25,13 +26,14 @@ double DecisionTree::SplitByGini(std::vector< std::vector<Data> > & currSplitDat
         }
     }
     int total = accumulate(cntSum.begin(), cntSum.end(), 0);
+    
     double ret = 0;
     for(int i=0; i<currSplitData.size(); i+=1) {
         // divided by zero case
         if (cntSum[i]==0) {
             continue;
         }
-        double tmp = cntSum[i] / static_cast<double>(total);
+        double tmp = static_cast<double>(cntSum[i]) / static_cast<double>(total);
         double gini = pow( static_cast<double>(cntEat[i]) / cntSum[i], 2 )
                     + pow( static_cast<double>(cntSum[i] - cntEat[i]) / cntSum[i], 2 );
         gini = 1-gini;
@@ -46,7 +48,30 @@ double DecisionTree::SplitByEntropy(std::vector< std::vector<Data> > & currSplit
 }
 double DecisionTree::SplitByError(std::vector< std::vector<Data> > & currSplitData)
 {
-    return 0;
+    vector<int> cntEat( currSplitData.size(), 0 );
+    vector<int> cntSum( currSplitData.size(), 0 );
+    for(int i=0; i<currSplitData.size(); i+=1) {
+        cntSum[i] = static_cast<int>( currSplitData[i].size() );
+        for(int j=0; j<currSplitData[i].size(); j+=1) {
+            if( currSplitData[i][j].canEat )
+                cntEat[i] += 1;
+        }
+    }
+    int total = accumulate(cntSum.begin(), cntSum.end(), 0);
+    
+    double ret = 0;
+    for(int i=0; i<currSplitData.size(); i+=1) {
+        // divided by zero case
+        if (cntSum[i]==0) {
+            continue;
+        }
+        double tmp = static_cast<double>(cntSum[i]) / static_cast<double>(total);
+        double error = max( static_cast<double>(cntEat[i]) / cntSum[i],
+                            static_cast<double>(cntSum[i] - cntEat[i]) / cntSum[i]);
+        error = 1-error;
+        ret += tmp * error;
+    }
+    return ret;
 }
 
 int DecisionTree::GetMinSplit(const std::vector<Data> & datas, std::vector< std::vector<Data> > & splitedData, const Attribute & attrs, SplitMethod whichMethod)
@@ -62,7 +87,7 @@ int DecisionTree::GetMinSplit(const std::vector<Data> & datas, std::vector< std:
             currSplitData[ datas[j].data[i] ].push_back( datas[j] );
         }
         
-        double currSplit = (this->*methods[0])(currSplitData);
+        double currSplit = (this->*methods[whichMethod])(currSplitData);
         if( minSplit > currSplit ) {
             retSplit = i;
             minSplit = currSplit;
@@ -251,9 +276,7 @@ void DecisionTree::PrintNode(Node * curr, int level)
 
 
 
-
-
-
+// ========== public: ===========
 
 DecisionTree::DecisionTree()
 {

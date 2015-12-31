@@ -8,8 +8,6 @@
 
 #include "Attribute.h"
 #include <sstream>
-
-// #include <iostream>
 using namespace std;
 
 void Attribute::initial(fstream & in)

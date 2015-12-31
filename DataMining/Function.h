@@ -11,12 +11,15 @@
 
 // #include <vector>
 // #include <fstream>
+#include <cstdlib>
 #include "Data.h"
 #include "Attribute.h"
 #include "Node.h"
 
-struct RNG {
-    int operator() (int n) {
+struct RNG
+{
+    int operator() (int n)
+    {
         return std::rand() / (1.0 + RAND_MAX) * n;
     }
 };

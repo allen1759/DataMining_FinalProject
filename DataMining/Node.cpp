@@ -9,8 +9,6 @@
 #include "Node.h"
 using namespace std;
 
-
-
 void Node::setLevel(int le)
 {
     level = le;
