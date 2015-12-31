@@ -94,10 +94,14 @@ DecisionTree::DecisionTree(double thres)
     purityThreshold = thres;
 }
 
-Node * DecisionTree::ConstructDecisionTree(std::vector<Data> & allData, const Attribute & attrs, int level)
+Node * DecisionTree::ConstructDecisionTreeHelp(std::vector<Data> & allData, const Attribute & attrs, int level)
 {
 //    cout << "level = " << level << endl;
     Node * currNode = new Node();
+    currNode->setLevel(level);
+    maxLevel = max(maxLevel, level);
+    cntNodes += 1;
+    
     if( allData.size()==0 ) {
         currNode->isLeaf = true;
         currNode->hasValue = false;
@@ -156,17 +160,20 @@ Node * DecisionTree::ConstructDecisionTree(std::vector<Data> & allData, const At
     
     currNode->child.resize( attrs.getOneSize(bestSplit)+1 );
     for(int i=0; i<currNode->child.size(); i+=1) {
-        currNode->child[i] = ConstructDecisionTree(splitedData[i], attrs, level+1);
+        currNode->child[i] = ConstructDecisionTreeHelp(splitedData[i], attrs, level+1);
     }
     
     currNode->updateCntEat();
-    if( level==0 ) {
-        head = currNode;
-    }
+    
     return currNode;
 }
 
-bool DecisionTree::PredictData(Data currData)
+void DecisionTree::ConstructDecisionTree(std::vector<Data> & allData, const Attribute & attrs)
+{
+    head = ConstructDecisionTreeHelp(allData, attrs, 1);
+}
+
+bool DecisionTree::PredictData(Data & currData)
 {
     Node * ptr = head;
     int ss = 0;
@@ -193,7 +200,7 @@ void DecisionTree::PrintNode(Node * curr, int level)
         return ;
     }
     // if( curr->isLeaf ) return;
-    if( curr->child.size()==0 ) return;
+    // if( curr->child.size()==0 ) return;
     
     printSpace(level);
     cout << "level= " << level << endl;
@@ -228,5 +235,10 @@ void DecisionTree::PrintNode(Node * curr, int level)
 
 void DecisionTree::Print()
 {
-    PrintNode(head, 0);
+    cout << endl;
+    cout << "Decision Tree Info:" << endl;
+    cout << "Max level of Tree = " << maxLevel << endl;
+    cout << "Total number of Node = " << cntNodes << endl;
+    cout << endl;
+    PrintNode(head, 1);
 }

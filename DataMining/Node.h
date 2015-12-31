@@ -22,11 +22,16 @@ public:
     bool isLeaf = false;
     bool hasValue = false;
     bool canEat;
-    int question;
+    int level = 0;
+    int question = 0;
     // 每一個分枝的值
     // std::vector<int> value;
     // 每一個分枝的 child node
     std::vector<Node *> child;
+    void setLevel(int le)
+    {
+        level = le;
+    }
     bool isNonValueLeaf() const
     {
         return isLeaf && !hasValue;

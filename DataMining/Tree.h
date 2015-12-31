@@ -19,6 +19,8 @@ class DecisionTree
 private:
     Node * head = nullptr;
     double purityThreshold = 0.8;
+    int cntNodes = 0;
+    int maxLevel = 0;
     
     double SplitByGini(std::vector< std::vector<Data> > currSplitData);
     int GetMinSplit(const std::vector<Data> & datas, std::vector< std::vector<Data> > & splitedData, const Attribute & attrs);
@@ -30,8 +32,9 @@ public:
     DecisionTree() = default;
     DecisionTree(double thres);
     // DecisionTree(std::vector<Data> & allData);
-    Node * ConstructDecisionTree(std::vector<Data> & allData, const Attribute & attrs, int level);
-    bool PredictData(Data currData);
+    Node * ConstructDecisionTreeHelp(std::vector<Data> & allData, const Attribute & attrs, int level);
+    void ConstructDecisionTree(std::vector<Data> & allData, const Attribute & attrs);
+    bool PredictData(Data & currData);
     void PrintNode(Node * curr, int level);
     void Print();
 };
