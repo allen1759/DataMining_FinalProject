@@ -24,6 +24,7 @@ private:
     int GetMinSplit(const std::vector<Data> & datas, std::vector< std::vector<Data> > & splitedData, const Attribute & attrs);
     // int GetMinSplit(std::vector<Data> & datas, const Attribute & attrs);
     double getPurity(const std::vector<Data> & arr);
+    void printSpace(int n) const;
     
 public:
     DecisionTree() = default;

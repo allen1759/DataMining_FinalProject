@@ -34,7 +34,7 @@ int main(int argc, const char * argv[])
     vector<Data> allData;
     InputAllDatas(in, allData, attrs);
     random_shuffle(allData.begin(), allData.end());
-    int trainingSize = 300;
+    int trainingSize = 3000;
     vector<Data> trainingData(allData.begin(), allData.begin()+trainingSize);
     vector<Data> testingData(allData.begin()+trainingSize, allData.end());
     // ========== get the traing dataset from file ==========
@@ -57,11 +57,11 @@ int main(int argc, const char * argv[])
     start_time = clock(); /* mircosecond */
     
     int cntSucceed = 0;
-//    for(auto & data : testingData) {
-//        if( data.canEat == myTree.PredictData(data) ) {
-//            cntSucceed += 1;
-//        }
-//    }
+    for(auto & data : testingData) {
+        if( data.canEat == myTree.PredictData(data) ) {
+            cntSucceed += 1;
+        }
+    }
     
     end_time = clock();
     cout << endl << endl;

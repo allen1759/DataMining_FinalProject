@@ -75,6 +75,15 @@ double DecisionTree::getPurity(const std::vector<Data> & arr)
 //                static_cast<double>(cntEat) / arr.size() );
 }
 
+void DecisionTree::printSpace(int n) const
+{
+    for(int i=0; i<n; i+=1)
+        std::cout << "  ";
+}
+
+
+
+
 //DecisionTree::DecisionTree(std::vector<Data> & allData)
 //{
 //    head = ConstructDecisionTree(allData);
@@ -99,6 +108,7 @@ Node * DecisionTree::ConstructDecisionTree(std::vector<Data> & allData, const At
         currNode->hasValue = true;
         currNode->isLeaf = true;
         currNode->canEat = true;
+        currNode->updateCntEat(allData);
         cout << " >= purityThreshold" << endl;
         return currNode;
     }
@@ -106,6 +116,7 @@ Node * DecisionTree::ConstructDecisionTree(std::vector<Data> & allData, const At
         currNode->hasValue = true;
         currNode->isLeaf = true;
         currNode->canEat = false;
+        currNode->updateCntEat(allData);
         cout << " <= purityThreshold" << endl;
         return currNode;
     }
@@ -118,17 +129,20 @@ Node * DecisionTree::ConstructDecisionTree(std::vector<Data> & allData, const At
         else {
             currNode->canEat = false;
         }
-        if( currNode==head ) cout << "QQ4" << endl;
+        currNode->updateCntEat(allData);
         return currNode;
     }
     
     vector< vector<Data> > splitedData;
     int bestSplit = GetMinSplit(allData, splitedData, attrs);
     currNode->question = bestSplit;
+    
+    // check one
     if( splitedData.size()!=attrs.getOneSize(bestSplit)+1 ) {
         cout << "Something Wrong!!! - ";
         cout << "DecisionTree::ConstructDecisionTree" << endl;
     }
+    // check two
     int checksum = 0;
     for(int i=0; i<splitedData.size(); i+=1) {
         checksum += splitedData[i].size();
@@ -138,12 +152,14 @@ Node * DecisionTree::ConstructDecisionTree(std::vector<Data> & allData, const At
         cout << "DecisionTree::ConstructDecisionTree";
         cout << "Num of Data Incorrect!" << endl;
     }
+    // ==========
     
     currNode->child.resize( attrs.getOneSize(bestSplit)+1 );
     for(int i=0; i<currNode->child.size(); i+=1) {
         currNode->child[i] = ConstructDecisionTree(splitedData[i], attrs, level+1);
     }
     
+    currNode->updateCntEat();
     if( level==0 ) {
         head = currNode;
     }
@@ -159,7 +175,7 @@ bool DecisionTree::PredictData(Data currData)
         // 可以改成找不到就統計所有其他的 attribute算答案
         // 現在先找不到就改成下一個
         Node * tmpptr = ptr->child[ childInd ];
-        while ( tmpptr->isLeaf && !tmpptr->hasValue) {
+        while ( tmpptr->isNonValueLeaf() ) {
             tmpptr = ptr->child[ (++childInd) % ptr->child.size() ];
             ss += 1;
         }
@@ -171,25 +187,40 @@ bool DecisionTree::PredictData(Data currData)
 
 void DecisionTree::PrintNode(Node * curr, int level)
 {
-    if( curr==nullptr ) return;
+    if( curr==nullptr ) {
+        cout << "some nullptr case!" << endl;
+        return ;
+    }
     // if( curr->isLeaf ) return;
     if( curr->child.size()==0 ) return;
     
-    for(int i=0; i<level; i+=1) cout << "    ";
+    printSpace(level);
     cout << "level= " << level << endl;
-    for(int i=0; i<level; i+=1) cout << "    ";
+    printSpace(level);
     cout << "hasValue= " << curr->hasValue << endl;
     if (curr->hasValue) {
-        for(int i=0; i<level; i+=1) cout << "    ";
+        printSpace(level);
         cout << "canEat= " << curr->canEat << endl;
     }
-    for(int i=0; i<level; i+=1) cout << "    ";
+    
+    printSpace(level);
+    cout << "CntCanEat= " << curr->getCntCanEat() << ", ";
+//    printSpace(level);
+    cout << "CntCannotEat= " << curr->getCntCannotEat() << ", ";
+//    printSpace(level);
+    cout << "TotalEat= " << curr->getTotalCnt() << endl;
+    printSpace(level);
+    cout << "CanEatRate= " << curr->getCanEatRate() << ", ";
+    cout << "CannotEatRate= " << curr->getCannotEateRate() << endl;
+    
+    printSpace(level);
     cout << "Num of child= " << curr->child.size() << endl;
     for(int i=0; i<curr->child.size(); i+=1) {
-        for(int k=0; k<level; k+=1) cout << "    ";
+        printSpace(level);
         cout << "Index of child= " << i << endl;
         PrintNode(curr->child[i], level+1);
     }
+    printSpace(level);
     for(int i=0; i<level; i+=1) cout << "    ";
     cout << "end of the Node" << endl << endl;
 }

@@ -27,6 +27,10 @@ public:
     // std::vector<int> value;
     // 每一個分枝的 child node
     std::vector<Node *> child;
+    bool isNonValueLeaf() const
+    {
+        return isLeaf && !hasValue;
+    }
     int getCntCanEat() const
     {
         return cntCanEat;
@@ -54,6 +58,9 @@ public:
         cntCannotEat = 0;
         
         for( auto & ptr : child ) {
+            if( ptr->isNonValueLeaf() ) {
+                continue;
+            }
             cntCanEat += ptr->getCntCanEat();
             cntCannotEat += ptr->getCntCannotEat();
         }
