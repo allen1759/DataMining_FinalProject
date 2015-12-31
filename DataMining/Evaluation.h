@@ -23,7 +23,7 @@
 class Evaluation
 {
 private:
-    int ConfusionMatrix[2][2];
+    int ConfusionMatrix[3][3];
     
 public:
     int getTP() const;
@@ -35,7 +35,7 @@ public:
     void setFP(int value);
     void setTN(int value);
     
-    void PrintMatrix() const;
+    void PrintMatrix();
 };
 
 

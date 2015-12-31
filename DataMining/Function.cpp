@@ -10,7 +10,7 @@
 #include <string>
 #include <sstream>
 #include <cctype>
-
+#include <algorithm>
 #include <iostream>
 using namespace std;
 
@@ -98,4 +98,6 @@ void InputAllDatas(std::fstream & in, std::vector<Data> & datas, const Attribute
             cout << "Cannot convert the string." << endl;
         }
     }
+    
+    random_shuffle(datas.begin(), datas.end(), RNG());
 }

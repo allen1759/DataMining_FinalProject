@@ -9,7 +9,6 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include <algorithm>
 #include <ctime>
 #include <cstdlib>
 #include "Function.h"
@@ -34,7 +33,6 @@ int main(int argc, const char * argv[])
     in.open("/Users/Allen/Documents/workspace/DataMining/expanded.txt", ios::in);
     vector<Data> allData;
     InputAllDatas(in, allData, attrs);
-    random_shuffle(allData.begin(), allData.end(), RNG());
     int trainingSize = 15;
     vector<Data> trainingData(allData.begin(), allData.begin()+trainingSize);
     vector<Data> testingData(allData.begin()+trainingSize, allData.end());
@@ -48,22 +46,20 @@ int main(int argc, const char * argv[])
     myTree.ConstructDecisionTree(trainingData, attrs, GINI);
     
     end_time = clock();
-    cout << "Training dataset size = " << trainingData.size() << endl;
-    cout << "Construct DecisionTree Time: " << static_cast<double>(end_time - start_time)/CLOCKS_PER_SEC << endl;
+    cout << "           ================ Training Step ================" << endl;
+    cout << "               Training dataset size = " << trainingData.size() << endl;
+    cout << "               Construct DecisionTree Time: " << static_cast<double>(end_time - start_time)/CLOCKS_PER_SEC << "(seconds)"  << endl << endl;
     // ========== using traing dataset ==========
     
 //     myTree.Print();
+    
     
     // ========== using testing dataset ==========
     start_time = clock(); /* mircosecond */
     
     Evaluation eval;
-//    int cntSucceed = 0;
     for(auto & data : testingData) {
         bool predicted = myTree.PredictData(data);
-//        if( data.canEat == myTree.PredictData(data) ) {
-//            cntSucceed += 1;
-//        }
         if( data.canEat && predicted ) {
             eval.setTP( eval.getTP()+1 );
         }
@@ -79,16 +75,13 @@ int main(int argc, const char * argv[])
     }
     
     end_time = clock();
-    cout << endl << endl;
-    cout << "Testing dataset size = " << testingData.size() << endl;
-//    cout << "Number of Correct Predict = " << cntSucceed << endl;
-//    cout << "Predict Correct Rate = " << static_cast<double>(cntSucceed) / testingData.size() * 100 << "%" << endl;
+    cout << "           ================ Predicting Step ================" << endl;
+    cout << "               Testing dataset size = " << testingData.size() << endl << endl;
     eval.PrintMatrix();
-    cout << "Precict using Time: " << static_cast<double>(end_time - start_time)/CLOCKS_PER_SEC << endl;
+    cout << "               Precict using Time: " << static_cast<double>(end_time - start_time)/CLOCKS_PER_SEC << "(seconds)" << endl;
     // ========== using testing dataset ==========
     
     cout << allData[1].data[1] << endl;
-    // cout << "The End" << endl;
     
     return 0;
 }
