@@ -28,60 +28,17 @@ public:
     // std::vector<int> value;
     // 每一個分枝的 child node
     std::vector<Node *> child;
-    void setLevel(int le)
-    {
-        level = le;
-    }
-    bool isNonValueLeaf() const
-    {
-        return isLeaf && !hasValue;
-    }
-    int getCntCanEat() const
-    {
-        return cntCanEat;
-    }
-    int getCntCannotEat() const
-    {
-        return cntCannotEat;
-    }
-    int getTotalCnt() const
-    {
-        return cntCanEat + cntCannotEat;
-    }
-    double getCanEatRate() const
-    {
-        return static_cast<double>(cntCanEat) / getTotalCnt();
-    }
-    double getCannotEateRate() const
-    {
-        return static_cast<double>(cntCannotEat) / getTotalCnt();
-    }
+    void setLevel(int le);
+    bool isNonValueLeaf() const;
+    int getCntCanEat() const;
+    int getCntCannotEat() const;
+    int getTotalCnt() const;
+    double getCanEatRate() const;
+    double getCannotEateRate() const;
     // case for non-hasValue node.
-    void updateCntEat()
-    {
-        cntCanEat = 0;
-        cntCannotEat = 0;
-        
-        for( auto & ptr : child ) {
-            if( ptr->isNonValueLeaf() ) {
-                continue;
-            }
-            cntCanEat += ptr->getCntCanEat();
-            cntCannotEat += ptr->getCntCannotEat();
-        }
-    }
+    void updateCntEat();
     // case for hasValue node.
-    void updateCntEat(std::vector<Data> & arr)
-    {
-        cntCanEat = 0;
-        cntCannotEat = 0;
-        for( auto &e : arr ) {
-            if( e.canEat )
-                cntCanEat += 1;
-            else
-                cntCannotEat += 1;
-        }
-    }
+    void updateCntEat(std::vector<Data> & arr);
 };
 
 #endif /* Node_h */
