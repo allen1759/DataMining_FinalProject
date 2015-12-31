@@ -16,9 +16,8 @@
 #include "Attribute.h"
 #include "Data.h"
 #include "Tree.h"
+#include "Evaluation.h"
 using namespace std;
-
-
 
 int main(int argc, const char * argv[])
 {
@@ -53,23 +52,38 @@ int main(int argc, const char * argv[])
     cout << "Construct DecisionTree Time: " << static_cast<double>(end_time - start_time)/CLOCKS_PER_SEC << endl;
     // ========== using traing dataset ==========
     
-     myTree.Print();
+//     myTree.Print();
     
     // ========== using testing dataset ==========
     start_time = clock(); /* mircosecond */
     
-    int cntSucceed = 0;
+    Evaluation eval;
+//    int cntSucceed = 0;
     for(auto & data : testingData) {
-        if( data.canEat == myTree.PredictData(data) ) {
-            cntSucceed += 1;
+        bool predicted = myTree.PredictData(data);
+//        if( data.canEat == myTree.PredictData(data) ) {
+//            cntSucceed += 1;
+//        }
+        if( data.canEat && predicted ) {
+            eval.setTP( eval.getTP()+1 );
+        }
+        else if( data.canEat && !predicted ) {
+            eval.setFN( eval.getFN()+1 );
+        }
+        else if( !data.canEat && predicted ) {
+            eval.setFP( eval.getFP()+1 );
+        }
+        else if( !data.canEat && !predicted ) {
+            eval.setTN( eval.getTN()+1 );
         }
     }
     
     end_time = clock();
     cout << endl << endl;
     cout << "Testing dataset size = " << testingData.size() << endl;
-    cout << "Number of Correct Predict = " << cntSucceed << endl;
-    cout << "Predict Correct Rate = " << static_cast<double>(cntSucceed) / testingData.size() * 100 << "%" << endl;
+//    cout << "Number of Correct Predict = " << cntSucceed << endl;
+//    cout << "Predict Correct Rate = " << static_cast<double>(cntSucceed) / testingData.size() * 100 << "%" << endl;
+    eval.PrintMatrix();
     cout << "Precict using Time: " << static_cast<double>(end_time - start_time)/CLOCKS_PER_SEC << endl;
     // ========== using testing dataset ==========
     

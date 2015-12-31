@@ -34,8 +34,9 @@ public:
     void setFN(int value);
     void setFP(int value);
     void setTN(int value);
+    
+    void PrintMatrix() const;
 };
-
 
 
 #endif /* Evaluation_h */
