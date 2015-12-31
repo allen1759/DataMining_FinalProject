@@ -18,6 +18,8 @@ public:
     bool hasValue = false;
     bool canEat;
     int question;
+    int cntCanEat = 0;
+    int cntCannotEat = 0;
     // 每一個分枝的值
     // std::vector<int> value;
     // 每一個分枝的 child node
