@@ -49,7 +49,7 @@ double DecisionTree::SplitByError(std::vector< std::vector<Data> > & currSplitDa
     return 0;
 }
 
-int DecisionTree::GetMinSplit(const std::vector<Data> & datas, std::vector< std::vector<Data> > & splitedData, const Attribute & attrs)
+int DecisionTree::GetMinSplit(const std::vector<Data> & datas, std::vector< std::vector<Data> > & splitedData, const Attribute & attrs, SplitMethod whichMethod)
 {
     int retSplit = 0;
     double minSplit = 1e9;
@@ -62,7 +62,7 @@ int DecisionTree::GetMinSplit(const std::vector<Data> & datas, std::vector< std:
             currSplitData[ datas[j].data[i] ].push_back( datas[j] );
         }
         
-        double currSplit = SplitByGini(currSplitData);
+        double currSplit = (this->*methods[0])(currSplitData);
         if( minSplit > currSplit ) {
             retSplit = i;
             minSplit = currSplit;
@@ -90,7 +90,7 @@ void DecisionTree::printSpace(int n) const
         std::cout << "  ";
 }
 
-Node * DecisionTree::ConstructDecisionTreeHelp(std::vector<Data> & allData, const Attribute & attrs, int level)
+Node * DecisionTree::ConstructDecisionTreeHelp(std::vector<Data> & allData, const Attribute & attrs, int level, SplitMethod whichMethod)
 {
 //    cout << "level = " << level << endl;
     Node * currNode = new Node();
@@ -134,7 +134,7 @@ Node * DecisionTree::ConstructDecisionTreeHelp(std::vector<Data> & allData, cons
     }
     
     vector< vector<Data> > splitedData;
-    int bestSplit = GetMinSplit(allData, splitedData, attrs);
+    int bestSplit = GetMinSplit(allData, splitedData, attrs, whichMethod);
     currNode->question = bestSplit;
     
     // check one
@@ -156,7 +156,7 @@ Node * DecisionTree::ConstructDecisionTreeHelp(std::vector<Data> & allData, cons
     
     currNode->child.resize( attrs.getOneSize(bestSplit)+1 );
     for(int i=0; i<currNode->child.size(); i+=1) {
-        currNode->child[i] = ConstructDecisionTreeHelp(splitedData[i], attrs, level+1);
+        currNode->child[i] = ConstructDecisionTreeHelp(splitedData[i], attrs, level+1, whichMethod);
     }
     
     currNode->updateCntEat();
@@ -270,9 +270,9 @@ DecisionTree::DecisionTree(double thres) : DecisionTree()
 }
 
 
-void DecisionTree::ConstructDecisionTree(std::vector<Data> & allData, const Attribute & attrs)
+void DecisionTree::ConstructDecisionTree(std::vector<Data> & allData, const Attribute & attrs, SplitMethod whichMethod)
 {
-    head = ConstructDecisionTreeHelp(allData, attrs, 1);
+    head = ConstructDecisionTreeHelp(allData, attrs, 1, whichMethod);
 }
 
 bool DecisionTree::PredictData(Data & currData)

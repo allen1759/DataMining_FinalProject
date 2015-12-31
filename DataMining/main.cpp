@@ -46,7 +46,7 @@ int main(int argc, const char * argv[])
     start_time = clock(); /* mircosecond */
     
     DecisionTree myTree(0.8);
-    myTree.ConstructDecisionTree(trainingData, attrs);
+    myTree.ConstructDecisionTree(trainingData, attrs, GINI);
     
     end_time = clock();
     cout << "Training dataset size = " << trainingData.size() << endl;
