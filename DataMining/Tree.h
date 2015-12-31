@@ -41,13 +41,13 @@ private:
     void printSpace(int n) const;
     Node * ConstructDecisionTreeHelp(std::vector<Data> & allData, const Attribute & attrs, int level);
     bool PredictFromNode(Node * ptr, Data & currData);
+    void PrintNode(Node * curr, int level);
     
 public:
     DecisionTree();
     DecisionTree(double thres);
     void ConstructDecisionTree(std::vector<Data> & allData, const Attribute & attrs);
     bool PredictData(Data & currData);
-    void PrintNode(Node * curr, int level);
     void Print();
 };
 
