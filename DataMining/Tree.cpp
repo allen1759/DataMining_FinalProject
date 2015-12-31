@@ -13,7 +13,7 @@
 #include <iostream>
 using namespace std;
 
-double DecisionTree::SplitByGini(std::vector< std::vector<Data> > currSplitData )
+double DecisionTree::SplitByGini(std::vector< std::vector<Data> > & currSplitData )
 {
     vector<int> cntEat( currSplitData.size(), 0 );
     vector<int> cntSum( currSplitData.size(), 0 );
@@ -38,6 +38,15 @@ double DecisionTree::SplitByGini(std::vector< std::vector<Data> > currSplitData 
         ret += tmp * gini;
     }
     return ret;
+}
+
+double DecisionTree::SplitByEntropy(std::vector< std::vector<Data> > & currSplitData)
+{
+    return 0;
+}
+double DecisionTree::SplitByError(std::vector< std::vector<Data> > & currSplitData)
+{
+    return 0;
 }
 
 int DecisionTree::GetMinSplit(const std::vector<Data> & datas, std::vector< std::vector<Data> > & splitedData, const Attribute & attrs)
@@ -84,12 +93,16 @@ void DecisionTree::printSpace(int n) const
 
 
 
-//DecisionTree::DecisionTree(std::vector<Data> & allData)
-//{
-//    head = ConstructDecisionTree(allData);
-//}
+DecisionTree::DecisionTree()
+{
+    methods.resize( MethodSize );
+    
+    methods[ GINI ]    = &DecisionTree::SplitByGini;
+    methods[ ENTROPY ] = &DecisionTree::SplitByEntropy;
+    methods[ ERROR ]   = &DecisionTree::SplitByError;
+}
 
-DecisionTree::DecisionTree(double thres)
+DecisionTree::DecisionTree(double thres)// : DecisionTree()
 {
     purityThreshold = thres;
 }
