@@ -109,7 +109,7 @@ Node * DecisionTree::ConstructDecisionTree(std::vector<Data> & allData, const At
         currNode->isLeaf = true;
         currNode->canEat = true;
         currNode->updateCntEat(allData);
-        cout << " >= purityThreshold" << endl;
+//        cout << " >= purityThreshold" << endl;
         return currNode;
     }
     if( purity <= (1-purityThreshold) ){
@@ -117,7 +117,7 @@ Node * DecisionTree::ConstructDecisionTree(std::vector<Data> & allData, const At
         currNode->isLeaf = true;
         currNode->canEat = false;
         currNode->updateCntEat(allData);
-        cout << " <= purityThreshold" << endl;
+//        cout << " <= purityThreshold" << endl;
         return currNode;
     }
     if( level>=attrs.getAttrSize()-2 ) {
@@ -171,7 +171,7 @@ bool DecisionTree::PredictData(Data currData)
     Node * ptr = head;
     int ss = 0;
     while ( !ptr->hasValue ) {
-        int childInd = ptr->question;
+        int childInd = currData.data[ ptr->question ];
         // 可以改成找不到就統計所有其他的 attribute算答案
         // 現在先找不到就改成下一個
         Node * tmpptr = ptr->child[ childInd ];
@@ -181,7 +181,8 @@ bool DecisionTree::PredictData(Data currData)
         }
         ptr = tmpptr;
     }
-    cout << ss << endl;
+    if( ss )
+        cout << ss << endl;
     return ptr->canEat;
 }
 

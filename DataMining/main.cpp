@@ -34,7 +34,7 @@ int main(int argc, const char * argv[])
     vector<Data> allData;
     InputAllDatas(in, allData, attrs);
     random_shuffle(allData.begin(), allData.end());
-    int trainingSize = 3000;
+    int trainingSize = 300;
     vector<Data> trainingData(allData.begin(), allData.begin()+trainingSize);
     vector<Data> testingData(allData.begin()+trainingSize, allData.end());
     // ========== get the traing dataset from file ==========
@@ -51,7 +51,7 @@ int main(int argc, const char * argv[])
     cout << "Construct DecisionTree Time: " << static_cast<double>(end_time - start_time)/CLOCKS_PER_SEC << endl;
     // ========== using traing dataset ==========
     
-    myTree.Print();
+     myTree.Print();
     
     // ========== using testing dataset ==========
     start_time = clock(); /* mircosecond */
