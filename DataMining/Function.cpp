@@ -22,33 +22,54 @@ string & tolower(string & str)
     return str;
 }
 
+
+bool String2Data(std::string & origin, const Attribute & attrs, Data & onedata)
+{
+    string word;
+    Data oned( attrs.getAttrSize() );
+    stringstream ss(origin);
+    // cout << ss.str() << endl;
+    ss >> word;
+    if( word[0]=='E' )
+        oned.setEat(true);
+    else if( word[0]=='P' )
+        oned.setEat(false);
+    else {
+        cout << "Error! I don't know what it is." << endl;
+        return false;
+    }
+    
+    for(int i=0; i<oned.data.size(); i+=1) {
+        ss >> word;
+        word = tolower(word);
+        if( word=="?" )
+            oned.data[i] = 0;
+        else {
+            oned.data[i] = attrs.getMapping(i, word);
+            if( oned.data[i]==0 ) {
+                cout << "Error! Cannot find this attribute value." << endl;
+                return false;
+            }
+        }
+        // cout << oned.data[i] << " ";
+    }
+    // cout << endl;
+    onedata = oned;
+    
+    return true;
+}
+
 void InputAllDatas(std::fstream & in, std::vector<Data> & datas, const Attribute & attrs)
 {
     string line, word;
     while ( getline(in, line) ) {
         if( line[0]=='/') continue;
-        Data oned( attrs.getAttrSize() );
-        stringstream ss(line);
-        // cout << ss.str() << endl;
-        ss >> word;
-        if( word[0]=='E' )
-            oned.setEat(true);
-        else if( word[0]=='P' )
-            oned.setEat(false);
-        else
-            cout << "Error! I don't know what it is." << endl;
-        
-        for(int i=0; i<oned.data.size(); i+=1) {
-            ss >> word;
-            word = tolower(word);
-            // cout << word[0] << " ";
-            if( word=="?" )
-                oned.data[i] = 0;
-            else
-                oned.data[i] = attrs.getMapping(i, word);
-            // cout << oned.data[i] << " ";
+        Data currd;
+        if( String2Data(line, attrs, currd)) {
+            datas.push_back( currd );
         }
-        // cout << endl;
-        datas.push_back(oned);
+        else {
+            cout << "Cannot convert the string." << endl;
+        }
     }
 }
