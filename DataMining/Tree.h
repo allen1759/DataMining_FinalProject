@@ -39,13 +39,13 @@ private:
     // int GetMinSplit(std::vector<Data> & datas, const Attribute & attrs);
     double getPurity(const std::vector<Data> & arr);
     void printSpace(int n) const;
+    Node * ConstructDecisionTreeHelp(std::vector<Data> & allData, const Attribute & attrs, int level);
+    bool PredictFromNode(Node * ptr, Data & currData);
     
 public:
     DecisionTree();
     DecisionTree(double thres);
-    Node * ConstructDecisionTreeHelp(std::vector<Data> & allData, const Attribute & attrs, int level);
     void ConstructDecisionTree(std::vector<Data> & allData, const Attribute & attrs);
-    bool PredictFromNode(Node * ptr, Data & currData);
     bool PredictData(Data & currData);
     void PrintNode(Node * curr, int level);
     void Print();

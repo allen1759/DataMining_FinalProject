@@ -90,23 +90,6 @@ void DecisionTree::printSpace(int n) const
         std::cout << "  ";
 }
 
-
-
-
-DecisionTree::DecisionTree()
-{
-    methods.resize( MethodSize );
-    
-    methods[ GINI ]    = &DecisionTree::SplitByGini;
-    methods[ ENTROPY ] = &DecisionTree::SplitByEntropy;
-    methods[ ERROR ]   = &DecisionTree::SplitByError;
-}
-
-DecisionTree::DecisionTree(double thres)// : DecisionTree()
-{
-    purityThreshold = thres;
-}
-
 Node * DecisionTree::ConstructDecisionTreeHelp(std::vector<Data> & allData, const Attribute & attrs, int level)
 {
 //    cout << "level = " << level << endl;
@@ -181,11 +164,6 @@ Node * DecisionTree::ConstructDecisionTreeHelp(std::vector<Data> & allData, cons
     return currNode;
 }
 
-void DecisionTree::ConstructDecisionTree(std::vector<Data> & allData, const Attribute & attrs)
-{
-    head = ConstructDecisionTreeHelp(allData, attrs, 1);
-}
-
 bool DecisionTree::PredictFromNode(Node * ptr, Data & currData)
 {
     int ss = 0;
@@ -229,6 +207,31 @@ bool DecisionTree::PredictFromNode(Node * ptr, Data & currData)
     if( ss )
         cout << ss << endl;
     return ptr->canEat;
+}
+
+
+
+
+
+
+DecisionTree::DecisionTree()
+{
+    methods.resize( MethodSize );
+    
+    methods[ GINI ]    = &DecisionTree::SplitByGini;
+    methods[ ENTROPY ] = &DecisionTree::SplitByEntropy;
+    methods[ ERROR ]   = &DecisionTree::SplitByError;
+}
+
+DecisionTree::DecisionTree(double thres) : DecisionTree()
+{
+    purityThreshold = thres;
+}
+
+
+void DecisionTree::ConstructDecisionTree(std::vector<Data> & allData, const Attribute & attrs)
+{
+    head = ConstructDecisionTreeHelp(allData, attrs, 1);
 }
 
 bool DecisionTree::PredictData(Data & currData)
