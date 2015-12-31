@@ -7,3 +7,13 @@
 //
 
 #include "Data.h"
+
+Data::Data(int size)
+{
+    data.resize(size);
+}
+
+void Data::setEat(bool ans)
+{
+    canEat = ans;
+}

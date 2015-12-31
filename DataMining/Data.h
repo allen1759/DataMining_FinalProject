@@ -19,15 +19,8 @@ public:
     std::vector<int> data;
     
     Data() = default;
-    Data(int size)
-    {
-        data.resize(size);
-    }
-    
-    void setEat(bool ans)
-    {
-        canEat = ans;
-    }
+    Data(int size);
+    void setEat(bool ans);
 };
 
 #endif /* Data_h */
