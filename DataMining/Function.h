@@ -14,7 +14,8 @@
 #include <cstdlib>
 #include "Data.h"
 #include "Attribute.h"
-#include "Node.h"
+// #include "Node.h"
+#include "Tree.h"
 
 struct RNG
 {
@@ -28,6 +29,8 @@ std::string & tolower(std::string & str);
 bool String2Data(std::string & origin, const Attribute & attrs);
 bool String2DataNoAnswer(std::string & origin, const Attribute & attrs, Data & onedata);
 void InputAllDatas(std::fstream & in, std::vector<Data> & datas, const Attribute & attrs);
+void PreProcess(const std::string & direct1, Attribute & attrs, const std::string & direct2, std::vector<Data> & allData, int trainingSize, std::vector<Data> & trainingData, std::vector<Data> & testingData);
+void TrainingStep(DecisionTree & myTree, std::vector<Data> & trainingData, Attribute & attrs, SplitMethod meth);
 
 
 #endif /* Function_h */

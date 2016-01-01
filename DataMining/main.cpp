@@ -21,50 +21,29 @@ using namespace std;
 int main(int argc, const char * argv[])
 {
     srand ( unsigned ( time(0) ) );
-    clock_t start_time, end_time;
     
-    fstream in;
-    in.open("/Users/Allen/Documents/workspace/DataMining/attributes.txt", ios::in);
-    Attribute attrs;
-    attrs.initial(in);
-    in.close();
+    string attrDirect = "/Users/Allen/Documents/workspace/DataMining/attributes.txt";
+    string dataDirect = "/Users/Allen/Documents/workspace/DataMining/expanded.txt";
     
-    // ========== get the traing dataset from file ==========
-    in.open("/Users/Allen/Documents/workspace/DataMining/expanded.txt", ios::in);
-    vector<Data> allData;
-    InputAllDatas(in, allData, attrs);
     int trainingSize = 15;
-    vector<Data> trainingData(allData.begin(), allData.begin()+trainingSize);
-    vector<Data> testingData(allData.begin()+trainingSize, allData.end());
-    in.close();
-    // ========== get the traing dataset from file ==========
+    Attribute attrs;
+    vector<Data> allData, trainingData, testingData;
+    DecisionTree myDecisionTree(0.8);
+    SplitMethod method = ENTROPY;
     
-    
-    
-    // ========== using traing dataset ==========
-    start_time = clock(); /* mircosecond */
-    
-    DecisionTree myTree(0.8);
-//     myTree.ConstructDecisionTree(trainingData, attrs, GINI);
-    myTree.ConstructDecisionTree(trainingData, attrs, ENTROPY);
-//    myTree.ConstructDecisionTree(trainingData, attrs, ERROR);
-    
-    end_time = clock();
-    cout << "           ================ Training Step ================" << endl;
-    cout << "               Training dataset size = " << trainingData.size() << endl;
-    cout << "               Construct DecisionTree Time: " << static_cast<double>(end_time - start_time)/CLOCKS_PER_SEC << "(seconds)"  << endl << endl;
-    // ========== using traing dataset ==========
+    PreProcess(attrDirect, attrs, dataDirect, allData, trainingSize, trainingData, testingData);
+    TrainingStep(myDecisionTree, trainingData, attrs, method);
     
 //     myTree.Print();
     
     
-    
     // ========== using testing dataset ==========
+    clock_t start_time, end_time;
     start_time = clock(); /* mircosecond */
     
     Evaluation eval;
     for(auto & data : testingData) {
-        bool predicted = myTree.PredictData(data);
+        bool predicted = myDecisionTree.PredictData(data);
         if( data.canEat && predicted ) {
             eval.setTP( eval.getTP()+1 );
         }
