@@ -33,6 +33,7 @@ void InputAllDatas(std::fstream & in, std::vector<Data> & datas, const Attribute
 void PreProcess(const std::string & direct1, Attribute & attrs, const std::string & direct2, std::vector<Data> & allData, int trainingSize, std::vector<Data> & trainingData, std::vector<Data> & testingData);
 void TrainingStep(DecisionTree & myTree, std::vector<Data> & trainingData, Attribute & attrs, SplitMethod meth);
 void TestingStep(DecisionTree & myTree, std::vector<Data> & testingData, Evaluation & eval);
+void Print2File(std::fstream & out, std::vector<Data> & trainingData, std::vector<Data> & testingData, Evaluation & eval);
 
 
 #endif /* Function_h */

@@ -158,3 +158,18 @@ void TestingStep(DecisionTree & myTree, std::vector<Data> & testingData, Evaluat
     cout << "               Precict using Time: " << static_cast<double>(end_time - start_time)/CLOCKS_PER_SEC << "(seconds)" << endl << endl;
     // ========== using testing dataset ==========
 }
+
+void Print2File(std::fstream & out, std::vector<Data> & trainingData, std::vector<Data> & testingData, Evaluation & eval)
+{
+    out << "Total_size: ";
+    out << "Train_size: ";
+    out << "Test_size: " ;
+    out << "TP FN FP TN ";
+    out << "Accuracy Precision Recall F_measure" << endl;
+    
+    out << trainingData.size()+testingData.size() << " ";
+    out << trainingData.size() << " ";
+    out << testingData.size() << " ";
+    out << eval.getTP() << " " << eval.getFN() << " " << eval.getFP() << " " << eval.getTN() << " ";
+    out << eval.getAccuracy() << " " << eval.getPrecision() << " " << eval.getRecall() << " " << eval.getF_measure() << endl;
+}

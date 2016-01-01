@@ -22,6 +22,10 @@ class Evaluation
 {
 private:
     int ConfusionMatrix[3][3];
+    double accuracy;
+    double precision;
+    double recall;
+    double F_measure;
     
 public:
     int getTP() const;
@@ -32,8 +36,13 @@ public:
     void setFN(int value);
     void setFP(int value);
     void setTN(int value);
+    double getAccuracy() const;
+    double getPrecision() const;
+    double getRecall() const;
+    double getF_measure() const;
     
-    void PrintMatrix();
+    void update();
+    void PrintMatrix() const;
 };
 
 

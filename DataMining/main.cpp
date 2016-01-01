@@ -23,9 +23,9 @@ int main(int argc, const char * argv[])
     srand ( unsigned ( time(0) ) );
     string attrDirect = "/Users/Allen/Documents/workspace/DataMining/attributes.txt";
     string dataDirect = "/Users/Allen/Documents/workspace/DataMining/expanded.txt";
+    string outputDirect = "/Users/Allen/Documents/workspace/DataMining/record.txt";
     
-    int times = 1;
-    int trainingSize = 15;
+    int times = 1, trainingSize = 15;
     Attribute attrs;
     vector<Data> allData, trainingData, testingData;
     
@@ -36,12 +36,9 @@ int main(int argc, const char * argv[])
         PreProcess(attrDirect, attrs, dataDirect, allData, trainingSize, trainingData, testingData);
         TrainingStep(myDecisionTree, trainingData, attrs, method);
         
-    //     myTree.Print();
-        
         Evaluation evalution;
         TestingStep(myDecisionTree, testingData, evalution);
     }
-    
     
     return 0;
 }

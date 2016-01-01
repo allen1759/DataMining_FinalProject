@@ -44,6 +44,37 @@ void Evaluation::setTN(int value)
     ConfusionMatrix[1][1] = value;
 }
 
+double Evaluation::getAccuracy() const
+{
+    return accuracy;
+}
+double Evaluation::getPrecision() const
+{
+    return precision;
+}
+double Evaluation::getRecall() const
+{
+    return recall;
+}
+double Evaluation::getF_measure() const
+{
+    return F_measure;
+}
+
+void Evaluation::update()
+{
+    ConfusionMatrix[0][2] = getTP() + getFN();
+    ConfusionMatrix[1][2] = getFP() + getTN();
+    ConfusionMatrix[2][0] = getTP() + getFP();
+    ConfusionMatrix[2][1] = getFN() + getTN();
+    ConfusionMatrix[2][2] = ConfusionMatrix[2][0] + ConfusionMatrix[2][1];
+    
+    accuracy = static_cast<double>(getTP()+getTN()) / ConfusionMatrix[2][2];
+    precision = static_cast<double>(getTP()) / ConfusionMatrix[0][2];
+    recall = static_cast<double>(getTP()) / ConfusionMatrix[2][0];
+    F_measure = 2*precision*recall / (precision+recall);
+}
+
 //                   Predicted class
 //           -------------------------------
 //           |   \\  |    yes   |    no    |
@@ -52,13 +83,8 @@ void Evaluation::setTN(int value)
 //    class  |-----------------------------|
 //           |  no   |          |          |
 //           -------------------------------
-void Evaluation::PrintMatrix()
+void Evaluation::PrintMatrix() const
 {
-    ConfusionMatrix[0][2] = getTP() + getFN();
-    ConfusionMatrix[1][2] = getFP() + getTN();
-    ConfusionMatrix[2][0] = getTP() + getFP();
-    ConfusionMatrix[2][1] = getFN() + getTN();
-    ConfusionMatrix[2][2] = ConfusionMatrix[2][0] + ConfusionMatrix[2][1];
     
     printf("                             Predicted class\n");
     printf("           -------------------------------------------------\n");
@@ -71,11 +97,8 @@ void Evaluation::PrintMatrix()
     printf("           |    Sum    |%8d   |%8d   |%8d   |\n", ConfusionMatrix[2][0], ConfusionMatrix[2][1], ConfusionMatrix[2][2]);
     printf("           -------------------------------------------------\n\n");
     
-    printf("               Accuracy  = %.4f%% ((a+d)/(a+b+c+d))\n", 100*static_cast<double>(getTP()+getTN()) / ConfusionMatrix[2][2]);
-    double precision = static_cast<double>(getTP()) / ConfusionMatrix[0][2];
+    printf("               Accuracy  = %.4f%% ((a+d)/(a+b+c+d))\n", 100*accuracy);
     printf("               Precision = %.4f%% (a/(a+c))\n", 100*precision);
-    double recall = static_cast<double>(getTP()) / ConfusionMatrix[2][0];
     printf("               Recall    = %.4f%% (a/(a+b)\n", 100*recall);
-    double F_measure = 2*precision*recall / (precision+recall);
     printf("               F-measure = %.4f%% (2rp/(r+p))\n", 100*F_measure);
 }
