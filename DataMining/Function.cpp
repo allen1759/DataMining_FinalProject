@@ -154,18 +154,23 @@ void TestingStep(DecisionTree & myTree, std::vector<Data> & testingData, Evaluat
     end_time = clock();
     cout << "           ================ Predicting Step ================" << endl;
     cout << "               Testing dataset size = " << testingData.size() << endl << endl;
+    eval.update();
     eval.PrintMatrix();
     cout << "               Precict using Time: " << static_cast<double>(end_time - start_time)/CLOCKS_PER_SEC << "(seconds)" << endl << endl;
     // ========== using testing dataset ==========
 }
 
-void Print2File(std::fstream & out, std::vector<Data> & trainingData, std::vector<Data> & testingData, Evaluation & eval)
+void Print2FileAttrs(std::fstream & out)
 {
     out << "Total_size: ";
     out << "Train_size: ";
     out << "Test_size: " ;
     out << "TP FN FP TN ";
     out << "Accuracy Precision Recall F_measure" << endl;
+}
+
+void Print2File(std::fstream & out, std::vector<Data> & trainingData, std::vector<Data> & testingData, Evaluation & eval)
+{
     
     out << trainingData.size()+testingData.size() << " ";
     out << trainingData.size() << " ";

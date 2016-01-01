@@ -85,7 +85,9 @@ double DecisionTree::SplitByEntropy(std::vector< std::vector<Data> > & currSplit
     
     // add minus: because we should maximizes GAIN
     if( splitInfo==0 ) {
-        cout << "SplitInfo should not be zero" << endl;
+        // all data in one partition would let splitEnfo==0
+        splitInfo = 1e-9;
+        // cout << "SplitInfo should not be zero" << endl;
     }
     return -ret / splitInfo;
 }

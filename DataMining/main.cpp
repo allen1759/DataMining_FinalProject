@@ -28,16 +28,18 @@ int main(int argc, const char * argv[])
     int times = 1, trainingSize = 15;
     Attribute attrs;
     vector<Data> allData, trainingData, testingData;
+    fstream out(outputDirect, ios::out);
     
     for(int t=0; t<times; t+=1) {
         DecisionTree myDecisionTree(0.8);
         SplitMethod method = ENTROPY;
+        Evaluation evalution;
         
         PreProcess(attrDirect, attrs, dataDirect, allData, trainingSize, trainingData, testingData);
         TrainingStep(myDecisionTree, trainingData, attrs, method);
         
-        Evaluation evalution;
         TestingStep(myDecisionTree, testingData, evalution);
+        Print2File(out, trainingData, testingData, evalution);
     }
     
     return 0;
