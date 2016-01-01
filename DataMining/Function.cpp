@@ -129,3 +129,32 @@ void TrainingStep(DecisionTree & myTree, std::vector<Data> & trainingData, Attri
     cout << "               Training dataset size = " << trainingData.size() << endl;
     cout << "               Construct DecisionTree Time: " << static_cast<double>(end_time - start_time)/CLOCKS_PER_SEC << "(seconds)"  << endl << endl;
 }
+
+void TestingStep(DecisionTree & myTree, std::vector<Data> & testingData, Evaluation & eval)
+{
+    clock_t start_time, end_time;
+    start_time = clock(); /* mircosecond */
+    
+    for(auto & data : testingData) {
+        bool predicted = myTree.PredictData(data);
+        if( data.canEat && predicted ) {
+            eval.setTP( eval.getTP()+1 );
+        }
+        else if( data.canEat && !predicted ) {
+            eval.setFN( eval.getFN()+1 );
+        }
+        else if( !data.canEat && predicted ) {
+            eval.setFP( eval.getFP()+1 );
+        }
+        else if( !data.canEat && !predicted ) {
+            eval.setTN( eval.getTN()+1 );
+        }
+    }
+    
+    end_time = clock();
+    cout << "           ================ Predicting Step ================" << endl;
+    cout << "               Testing dataset size = " << testingData.size() << endl << endl;
+    eval.PrintMatrix();
+    cout << "               Precict using Time: " << static_cast<double>(end_time - start_time)/CLOCKS_PER_SEC << "(seconds)" << endl << endl;
+    // ========== using testing dataset ==========
+}
