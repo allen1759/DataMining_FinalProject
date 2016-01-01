@@ -26,6 +26,8 @@ private:
     double precision;
     double recall;
     double F_measure;
+    double trainingTime = 0;
+    double testingTime = 0;
     
 public:
     int getTP() const;
@@ -40,6 +42,22 @@ public:
     double getPrecision() const;
     double getRecall() const;
     double getF_measure() const;
+    void addTrainingTime(double num)
+    {
+        trainingTime += num;
+    }
+    void addTestingTime(double num)
+    {
+        testingTime += num;
+    }
+    double getTrainingTime() const
+    {
+        return trainingTime;
+    }
+    double getTestingTime() const
+    {
+        return testingTime;
+    }
     
     void update();
     void PrintMatrix() const;

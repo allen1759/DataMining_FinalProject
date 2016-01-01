@@ -117,7 +117,7 @@ void PreProcess(const std::string & direct1, Attribute & attrs, const std::strin
     in.close();
 }
 
-void TrainingStep(DecisionTree & myTree, std::vector<Data> & trainingData, Attribute & attrs, SplitMethod meth)
+void TrainingStep(DecisionTree & myTree, std::vector<Data> & trainingData, Attribute & attrs, SplitMethod meth, Evaluation & eval, bool print)
 {
     clock_t start_time, end_time;
     start_time = clock(); /* mircosecond */
@@ -125,12 +125,16 @@ void TrainingStep(DecisionTree & myTree, std::vector<Data> & trainingData, Attri
     myTree.ConstructDecisionTree(trainingData, attrs, meth);
     
     end_time = clock();
-    cout << "           ================ Training Step ================" << endl;
-    cout << "               Training dataset size = " << trainingData.size() << endl;
-    cout << "               Construct DecisionTree Time: " << static_cast<double>(end_time - start_time)/CLOCKS_PER_SEC << "(seconds)"  << endl << endl;
+    eval.addTrainingTime(static_cast<double>(end_time - start_time)/CLOCKS_PER_SEC);
+    
+    if( print ) {
+        cout << "           ================ Training Step ================" << endl;
+        cout << "               Training dataset size = " << trainingData.size() << endl;
+        cout << "               Construct DecisionTree Time: " << static_cast<double>(end_time - start_time)/CLOCKS_PER_SEC << "(seconds)"  << endl << endl;
+    }
 }
 
-void TestingStep(DecisionTree & myTree, std::vector<Data> & testingData, Evaluation & eval)
+void TestingStep(DecisionTree & myTree, std::vector<Data> & testingData, Evaluation & eval, bool print)
 {
     clock_t start_time, end_time;
     start_time = clock(); /* mircosecond */
@@ -152,29 +156,34 @@ void TestingStep(DecisionTree & myTree, std::vector<Data> & testingData, Evaluat
     }
     
     end_time = clock();
-    cout << "           ================ Predicting Step ================" << endl;
-    cout << "               Testing dataset size = " << testingData.size() << endl << endl;
+    
+    eval.addTestingTime(static_cast<double>(end_time - start_time)/CLOCKS_PER_SEC);
     eval.update();
-    eval.PrintMatrix();
-    cout << "               Precict using Time: " << static_cast<double>(end_time - start_time)/CLOCKS_PER_SEC << "(seconds)" << endl << endl;
-    // ========== using testing dataset ==========
+    if( print ) {
+        cout << "           ================ Predicting Step ================" << endl;
+        cout << "               Testing dataset size = " << testingData.size() << endl << endl;
+        eval.PrintMatrix();
+        cout << "               Precict using Time: " << static_cast<double>(end_time - start_time)/CLOCKS_PER_SEC << "(seconds)" << endl << endl;
+    }
 }
 
 void Print2FileAttrs(std::fstream & out)
 {
-    out << "Total_size: ";
-    out << "Train_size: ";
-    out << "Test_size: " ;
+    out << "Total_size ";
+    out << "Train_size ";
+    out << "Test_size " ;
     out << "TP FN FP TN ";
-    out << "Accuracy Precision Recall F_measure" << endl;
+    out << "Accuracy Precision Recall F_measure ";
+    out << "Training_time ";
+    out << "Testing_time " << endl;
 }
 
 void Print2File(std::fstream & out, std::vector<Data> & trainingData, std::vector<Data> & testingData, Evaluation & eval)
 {
-    
     out << trainingData.size()+testingData.size() << " ";
     out << trainingData.size() << " ";
     out << testingData.size() << " ";
     out << eval.getTP() << " " << eval.getFN() << " " << eval.getFP() << " " << eval.getTN() << " ";
-    out << eval.getAccuracy() << " " << eval.getPrecision() << " " << eval.getRecall() << " " << eval.getF_measure() << endl;
+    out << eval.getAccuracy() << " " << eval.getPrecision() << " " << eval.getRecall() << " " << eval.getF_measure() << " ";
+    out << eval.getTrainingTime() << " " << eval.getTestingTime() << endl;
 }

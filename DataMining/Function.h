@@ -31,8 +31,8 @@ bool String2Data(std::string & origin, const Attribute & attrs);
 bool String2DataNoAnswer(std::string & origin, const Attribute & attrs, Data & onedata);
 void InputAllDatas(std::fstream & in, std::vector<Data> & datas, const Attribute & attrs);
 void PreProcess(const std::string & direct1, Attribute & attrs, const std::string & direct2, std::vector<Data> & allData, int trainingSize, std::vector<Data> & trainingData, std::vector<Data> & testingData);
-void TrainingStep(DecisionTree & myTree, std::vector<Data> & trainingData, Attribute & attrs, SplitMethod meth);
-void TestingStep(DecisionTree & myTree, std::vector<Data> & testingData, Evaluation & eval);
+void TrainingStep(DecisionTree & myTree, std::vector<Data> & trainingData, Attribute & attrs, SplitMethod meth, Evaluation & eval, bool print=true);
+void TestingStep(DecisionTree & myTree, std::vector<Data> & testingData, Evaluation & eval, bool print=true);
 void Print2FileAttrs(std::fstream & out);
 void Print2File(std::fstream & out, std::vector<Data> & trainingData, std::vector<Data> & testingData, Evaluation & eval);
 
