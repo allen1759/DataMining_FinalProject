@@ -23,17 +23,17 @@ int main(int argc, const char * argv[])
     srand ( unsigned ( time(0) ) );
     string attrDirect = "/Users/Allen/Documents/workspace/DataMining/attributes.txt";
     string dataDirect = "/Users/Allen/Documents/workspace/DataMining/expanded.txt";
-    string outputDirect = "/Users/Allen/Documents/workspace/DataMining/record-1500-GINI.txt";
+    string outputDirect = "/Users/Allen/Documents/workspace/DataMining/record-1500-ERROR.txt";
     
     int times = 100, trainingSize = 1500;
-    Attribute attrs;
-    vector<Data> allData, trainingData, testingData;
     fstream out(outputDirect, ios::out);
     Print2FileAttrs(out);
     
     for(int t=0; t<times; t+=1) {
+        Attribute attrs;
+        vector<Data> allData, trainingData, testingData;
         DecisionTree myDecisionTree(0.8);
-        SplitMethod method = GINI;
+        SplitMethod method = ERROR;
         Evaluation evaluation;
         
         PreProcess(attrDirect, attrs, dataDirect, allData, trainingSize, trainingData, testingData);
