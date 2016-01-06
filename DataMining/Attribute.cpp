@@ -26,9 +26,11 @@ void Attribute::initial(fstream & in)
                 break;
         }
         while( ss>>word ) {
+            string abbr = word.substr(word.length()-1);
             word = word.substr(0, word.length()-2);
             // cout << "word = " << word << ": " << cnt+1 << endl;
             record[attrSize][word] = ++cnt;
+            record[attrSize][abbr] = cnt;
         }
         attrSize += 1;
     }

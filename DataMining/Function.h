@@ -35,6 +35,7 @@ void TrainingStep(DecisionTree & myTree, std::vector<Data> & trainingData, Attri
 void TestingStep(DecisionTree & myTree, std::vector<Data> & testingData, Evaluation & eval, bool print=true);
 void Print2FileAttrs(std::fstream & out);
 void Print2File(std::fstream & out, std::vector<Data> & trainingData, std::vector<Data> & testingData, Evaluation & eval);
+void PredictLoop(DecisionTree & mytree, const Attribute & attr);
 
 
 #endif /* Function_h */

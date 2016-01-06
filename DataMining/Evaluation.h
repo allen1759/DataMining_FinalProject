@@ -30,6 +30,14 @@ private:
     double testingTime = 0;
     
 public:
+    Evaluation()
+    {
+        for(int i=0; i<3; i+=1) {
+            for(int j=0; j<3; j+=1) {
+                ConfusionMatrix[i][j] = 0;
+            }
+        }
+    }
     int getTP() const;
     int getFN() const;
     int getFP() const;

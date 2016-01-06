@@ -25,7 +25,7 @@ int main(int argc, const char * argv[])
     string dataDirect = "/Users/Allen/Documents/workspace/DataMining/expanded.txt";
     string outputDirect = "/Users/Allen/Documents/workspace/DataMining/record-1500-ERROR.txt";
     
-    int times = 100, trainingSize = 1500;
+    int times = 1, trainingSize = 1500;
     fstream out(outputDirect, ios::out);
     Print2FileAttrs(out);
     
@@ -41,6 +41,9 @@ int main(int argc, const char * argv[])
         
         TestingStep(myDecisionTree, testingData, evaluation, false);
         Print2File(out, trainingData, testingData, evaluation);
+        evaluation.PrintMatrix();
+        
+        PredictLoop(myDecisionTree, attrs);
     }
     
     return 0;

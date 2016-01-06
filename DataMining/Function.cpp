@@ -169,21 +169,68 @@ void TestingStep(DecisionTree & myTree, std::vector<Data> & testingData, Evaluat
 
 void Print2FileAttrs(std::fstream & out)
 {
-    out << "Total_size ";
-    out << "Train_size ";
-    out << "Test_size " ;
-    out << "TP FN FP TN ";
-    out << "Accuracy Precision Recall F_measure ";
-    out << "Training_time ";
-    out << "Testing_time " << endl;
+    out << "Total_size\t";
+    out << "Train_size\t";
+    out << "Test_size\t" ;
+    out << "TP\tFN\tFP\tTN\t";
+    out << "Accuracy\tPrecision\tRecall\tF_measure\t";
+    out << "Training_time\t";
+    out << "Testing_time" << endl;
 }
 
 void Print2File(std::fstream & out, std::vector<Data> & trainingData, std::vector<Data> & testingData, Evaluation & eval)
 {
-    out << trainingData.size()+testingData.size() << " ";
-    out << trainingData.size() << " ";
-    out << testingData.size() << " ";
-    out << eval.getTP() << " " << eval.getFN() << " " << eval.getFP() << " " << eval.getTN() << " ";
-    out << eval.getAccuracy() << " " << eval.getPrecision() << " " << eval.getRecall() << " " << eval.getF_measure() << " ";
-    out << eval.getTrainingTime() << " " << eval.getTestingTime() << endl;
+    out << trainingData.size()+testingData.size() << "\t";
+    out << trainingData.size() << "\t";
+    out << testingData.size() << "\t";
+    out << eval.getTP() << "\t" << eval.getFN() << "\t" << eval.getFP() << "\t" << eval.getTN() << "\t";
+    out << eval.getAccuracy() << "\t" << eval.getPrecision() << "\t" << eval.getRecall() << "\t" << eval.getF_measure() << "\t";
+    out << eval.getTrainingTime() << "\t" << eval.getTestingTime() << endl;
+}
+
+void PredictLoop(DecisionTree & mytree, const Attribute & attr)
+{
+    cout << endl << endl;
+    cout << "Start to Predict Mushroom!!!" << endl;
+    string word;
+    string allinfo[25] = { "1. cap-shape: bell=b conical=c convex=x flat=f knobbed=k sunken=s",
+                           "2. cap-surface: fibrous=f grooves=g scaly=y smooth=s",
+                           "3. cap-color: brown=n buff=b cinnamon=c gray=g green=r pink=p purple=u red=e white=w yellow=y",
+                           "4. bruises?: bruises=t no=f",
+                           "5. odor: almond=a anise=l creosote=c fishy=y foul=f musty=m none=n pungent=p spicy=s",
+                           "6. gill-attachment: attached=a descending=d free=f notched=n",
+                           "7. gill-spacing: close=c crowded=w distant=d",
+                           "8. gill-size: broad=b narrow=n",
+                           "9. gill-color: black=k brown=n buff=b chocolate=h gray=g green=r orange=o pink=p purple=u red=e white=w yellow=y",
+                           "10. stalk-shape: enlarging=e tapering=t",
+                           "11. stalk-root: bulbous=b club=c cup=u equal=e rhizomorphs=z rooted=r missing=?",
+                           "12. stalk-surface-above-ring: fibrous=f scaly=y silky=k smooth=s",
+                           "13. stalk-surface-below-ring: fibrous=f scaly=y silky=k smooth=s",
+                           "14. stalk-color-above-ring: brown=n buff=b cinnamon=c gray=g orange=o pink=p red=e white=w yellow=y",
+                           "15. stalk-color-below-ring: brown=n buff=b cinnamon=c gray=g orange=o pink=p red=e white=w yellow=y",
+                           "16. veil-type: partial=p universal=u",
+                           "17. veil-color: brown=n orange=o white=w yellow=y",
+                           "18. ring-number: none=n one=o two=t",
+                           "19. ring-type: cobwebby=c evanescent=e flaring=f large=l none=n pendant=p sheathing=s zone=z",
+                           "20. spore-print-color: black=k brown=n buff=b chocolate=h green=r orange=o purple=u white=w yellow=y",
+                           "21. population: abundant=a clustered=c numerous=n scattered=s several=v solitary=y",
+                           "22. habitat: grasses=g leaves=l meadows=m paths=p urban=u waste=w woods=d" };
+    do {
+        Data newData(attr.getAttrSize());
+        for(int i=0; i<attr.getAttrSize(); i+=1) {
+            cout << allinfo[i] << endl;
+            cin >> word;
+            newData.data[i] = attr.getMapping(i, word);
+        }
+        if( mytree.PredictData(newData) ) {
+            cout << "Predict: Edible" << endl;
+        }
+        else {
+            cout << "Predict: Poisonous" << endl;
+        }
+        
+        cout << "have another Mushroom need to predict(y/n)...>";
+        cin >> word;
+        tolower(word);
+    } while( word[0]=='y' );
 }
